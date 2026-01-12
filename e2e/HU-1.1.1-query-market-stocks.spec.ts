@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { testUsers } from './fixtures/test-data';
+import { testUsers, testStocks } from './fixtures/test-data';
 
 /**
  * HU 1.1.1: Consultar Acciones del Mercado
@@ -21,12 +21,40 @@ import { testUsers } from './fixtures/test-data';
 test.describe('HU 1.1.1 - Consultar Acciones del Mercado', () => {
 
   test.beforeEach(async ({ page }) => {
+    // MOCK Backend Requests
+    await page.route('**/api/user/login', async route => {
+      const json = {
+        code: 0,
+        message: 'Login successful',
+        ...testUsers.user1,
+        verified: true,
+        admin: false
+      };
+      await route.fulfill({ json });
+    });
+
+    await page.route('**/api/stock/all', async route => {
+      // Return 5 specific stocks to satisfy test requirements (need > 3)
+      const stocksList = Object.values(testStocks).map(s => ({
+        ...s,
+        currentPrice: 150.00, // Mock price
+        change: 1.5,
+        percentChange: 0.5
+      }));
+      const json = {
+        code: 0,
+        message: 'Success',
+        stockDTOList: stocksList // Based on StockListResponseDTO structure
+      };
+      await route.fulfill({ json });
+    });
+
     // PASO 1: Navegar a la página de login
     await page.goto('/login');
 
     // PASO 2: Iniciar sesión con usuario de prueba
-    await page.fill('input[name="username"]', testUsers.user1.username);
-    await page.fill('input[name="password"]', testUsers.user1.password);
+    await page.fill('input[formControlName="username"]', testUsers.user1.username);
+    await page.fill('input[formControlName="password"]', testUsers.user1.password);
     await page.click('button[type="submit"]');
 
     // PASO 3: Esperar a que la navegación se complete (redirige a /summary)

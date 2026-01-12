@@ -22,10 +22,34 @@ import { testUsers, testStocks, testCards, testPurchases } from './fixtures/test
 test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
 
   test.beforeEach(async ({ page }) => {
+    // MOCK Backend Requests
+    await page.route('**/api/user/login', async route => {
+      const json = { code: 0, message: 'Login successful', ...testUsers.user1, verified: true, admin: false };
+      await route.fulfill({ json });
+    });
+
+    await page.route('**/api/transaction/verify-visa', async route => {
+      // Only verify valid visa
+      const postData = route.request().postDataJSON();
+      if (postData && postData.cardNumber === testCards.validVisa1) {
+        await route.fulfill({ json: { code: 0, message: 'Valid Visa' } });
+      } else {
+        await route.fulfill({ status: 400, json: { code: 1, message: 'Invalid Visa' } });
+      }
+    });
+
+    await page.route('**/api/transaction/buy', async route => {
+      await route.fulfill({ json: { code: 0, message: 'Purchase successful' } });
+    });
+
+    await page.route('**/api/stock/ownedstocks/**', async route => {
+      await route.fulfill({ json: [] }); // Start empty or with content
+    });
+
     // PASO 1: Login
     await page.goto('/login');
-    await page.fill('input[name="username"]', testUsers.user1.username);
-    await page.fill('input[name="password"]', testUsers.user1.password);
+    await page.fill('input[formControlName="username"]', testUsers.user1.username);
+    await page.fill('input[formControlName="password"]', testUsers.user1.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('**/summary', { timeout: 10000 });
   });
@@ -177,7 +201,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     if (await submitButton.isVisible({ timeout: 3000 })) {
       // Aquí simplemente verificamos que el flujo no rompe
       // En un ambiente real con backend funcionando, esto completaría la compra
-      await submitButton.click().catch(() => {});
+      await submitButton.click().catch(() => { });
       await page.waitForTimeout(2000);
     }
 
@@ -204,7 +228,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
 
       // Si no hay transacciones, puede mostrar mensaje de vacío
       const emptyMessage = pageContent.includes('No hay transacciones') ||
-                          pageContent.includes('No transactions');
+        pageContent.includes('No transactions');
 
       // Aceptamos ambos casos (hay transacciones o está vacío)
       expect(hasTransactionInfo || emptyMessage).toBeTruthy();

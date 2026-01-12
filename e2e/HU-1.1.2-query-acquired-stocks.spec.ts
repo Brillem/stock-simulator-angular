@@ -21,12 +21,43 @@ import { testUsers } from './fixtures/test-data';
 test.describe('HU 1.1.2 - Consultar Acciones Adquiridas', () => {
 
   test.beforeEach(async ({ page }) => {
+    // MOCK Backend Requests
+    await page.route('**/api/user/login', async route => {
+      const json = {
+        code: 0,
+        message: 'Login successful',
+        ...testUsers.user1,
+        verified: true,
+        admin: false
+      };
+      await route.fulfill({ json });
+    });
+
+    await page.route('**/api/stock/ownedstocks/**', async route => {
+      // Return mocked owned stocks
+      const json = [
+        {
+          ticker: 'AAPL',
+          name: 'Apple Inc.',
+          quantity: 10,
+          totalPrice: 1500.00
+        },
+        {
+          ticker: 'GOOGL',
+          name: 'Alphabet Inc.',
+          quantity: 5,
+          totalPrice: 2000.00
+        }
+      ];
+      await route.fulfill({ json });
+    });
+
     // PASO 1: Navegar a login
     await page.goto('/login');
 
     // PASO 2: Iniciar sesión
-    await page.fill('input[name="username"]', testUsers.user1.username);
-    await page.fill('input[name="password"]', testUsers.user1.password);
+    await page.fill('input[formControlName="username"]', testUsers.user1.username);
+    await page.fill('input[formControlName="password"]', testUsers.user1.password);
     await page.click('button[type="submit"]');
 
     // PASO 3: Esperar redirección a summary

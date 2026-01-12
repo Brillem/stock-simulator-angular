@@ -21,10 +21,39 @@ import { testUsers } from './fixtures/test-data';
 test.describe('HU 1.1.4 - Consultar Historial de Compras', () => {
 
   test.beforeEach(async ({ page }) => {
+    // MOCK Backend Requests
+    await page.route('**/api/user/login', async route => {
+      const json = { code: 0, message: 'Login successful', ...testUsers.user1, verified: true, admin: false };
+      await route.fulfill({ json });
+    });
+
+    await page.route('**/api/transaction/all**', async route => {
+      // Mock transactions history
+      const json = [
+        {
+          id: 1,
+          type: 'buy',
+          ticker: 'AAPL',
+          quantity: 10,
+          amount: 1500.0,
+          date: '2025-01-01'
+        },
+        {
+          id: 2,
+          type: 'sell',
+          ticker: 'GOOGL',
+          quantity: 5,
+          amount: 1000.0,
+          date: '2025-01-02'
+        }
+      ];
+      await route.fulfill({ json });
+    });
+
     // PASO 1: Login
     await page.goto('/login');
-    await page.fill('input[name="username"]', testUsers.user1.username);
-    await page.fill('input[name="password"]', testUsers.user1.password);
+    await page.fill('input[formControlName="username"]', testUsers.user1.username);
+    await page.fill('input[formControlName="password"]', testUsers.user1.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('**/summary', { timeout: 10000 });
   });
@@ -220,7 +249,7 @@ test.describe('HU 1.1.4 - Consultar Historial de Compras', () => {
       expect(isModalVisible).toBeTruthy();
     } else if (hasTransactionRow) {
       // Intentar hacer click en la fila
-      await transactionRow.click().catch(() => {});
+      await transactionRow.click().catch(() => { });
       await page.waitForTimeout(1000);
 
       // Verificar si cambió el contenido
