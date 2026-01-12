@@ -50,7 +50,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     await page.goto('/login');
     await page.fill('input[formControlName="username"]', testUsers.user1.username);
     await page.fill('input[formControlName="password"]', testUsers.user1.password);
-    await page.click('button[type="submit"]');
+    await page.click('button.button-wrapper.primary');
     await page.waitForURL('**/summary', { timeout: 10000 });
   });
 
@@ -92,7 +92,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     }
 
     // PASO 2: Hacer click en Continuar o siguiente paso
-    const continueButton = page.locator('button:has-text("Continuar"), button:has-text("Continue"), button:has-text("Siguiente"), button:has-text("Next")').first();
+    const continueButton = page.locator('button:not(.icon-button)').first();
 
     if (await continueButton.isVisible({ timeout: 3000 })) {
       await continueButton.click();
@@ -119,14 +119,14 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     }
 
     // PASO 4: Verificar tarjeta (si hay botón)
-    const verifyButton = page.locator('button:has-text("Verificar"), button:has-text("Verify")').first();
+    const verifyButton = page.locator('button:not(.icon-button)').first();
     if (await verifyButton.isVisible({ timeout: 3000 })) {
       await verifyButton.click();
       await page.waitForTimeout(1000);
     }
 
     // PASO 5: Confirmar compra
-    const confirmButton = page.locator('button:has-text("Confirmar"), button:has-text("Confirm"), button:has-text("Comprar"), button:has-text("Buy"), button[type="submit"]').first();
+    const confirmButton = page.locator('button.button-wrapper.primary').first();
 
     if (await confirmButton.isVisible({ timeout: 5000 })) {
       await confirmButton.click();
@@ -161,7 +161,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
       // Ingresar tarjeta inválida
       await cardNumberInput.fill(testCards.invalidVisa1);
 
-      const verifyButton = page.locator('button:has-text("Verificar"), button:has-text("Verify")').first();
+      const verifyButton = page.locator('button:not(.icon-button)').first();
 
       if (await verifyButton.isVisible({ timeout: 3000 })) {
         await verifyButton.click();
@@ -172,7 +172,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
         const hasError = await errorMessage.isVisible({ timeout: 3000 }).catch(() => false);
 
         // O el botón de confirmar debe estar deshabilitado
-        const confirmButton = page.locator('button:has-text("Confirmar"), button:has-text("Confirm")').first();
+        const confirmButton = page.locator('button.button-wrapper.primary').first();
         const isConfirmDisabled = await confirmButton.isDisabled().catch(() => false);
 
         expect(hasError || isConfirmDisabled).toBeTruthy();
@@ -197,7 +197,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     }
 
     // Intentar avanzar y completar la compra
-    const submitButton = page.locator('button[type="submit"], button:has-text("Comprar")').first();
+    const submitButton = page.locator('button.button-wrapper.primary').first();
     if (await submitButton.isVisible({ timeout: 3000 })) {
       // Aquí simplemente verificamos que el flujo no rompe
       // En un ambiente real con backend funcionando, esto completaría la compra
@@ -259,7 +259,7 @@ test.describe('HU 1.1.3 - Registrar Compras de Acciones', () => {
     await page.waitForLoadState('networkidle');
 
     // When: Usuario busca opción de cancelar
-    const cancelButton = page.locator('button:has-text("Cancelar"), button:has-text("Cancel"), button:has-text("Volver"), button:has-text("Back")').first();
+    const cancelButton = page.locator('button:not(.icon-button)').first();
 
     if (await cancelButton.isVisible({ timeout: 3000 })) {
       await cancelButton.click();

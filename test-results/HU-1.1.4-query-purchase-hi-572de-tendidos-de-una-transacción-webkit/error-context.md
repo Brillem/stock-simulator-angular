@@ -22,15 +22,15 @@
           - generic [ref=e25] [cursor=pointer]:
             - img "Registrar Usuario" [ref=e27]
             - generic [ref=e29]: Registrar Usuario
-        - generic [ref=e30]:
-          - generic [ref=e84]:
-            - generic [ref=e85]: Aprende a invertir al alcance de tu ordenador.
-            - img "monitor" [ref=e87]
-          - generic [ref=e90]:
-            - generic [ref=e91]:
-              - generic [ref=e92]: ¿Quiénes Somos?
-              - generic [ref=e93]: Somos una plataforma para simular compra y venta de acciones en un entorno realista y seguro. Stock Simulator es ideal para principiantes y expertos, permitiendo mejorar sus habilidades de inversión sin riesgo financiero.
-            - img "phone" [ref=e95]
-        - contentinfo [ref=e96]:
-          - generic [ref=e97]: El acceso o uso no autorizado se considera un delito. © Copyright 2024 by Stock Simulator.
+        - generic:
+          - generic [ref=e83]:
+            - generic [ref=e84]: Aprende a invertir al alcance de tu ordenador.
+            - img "monitor" [ref=e86]
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e91]: ¿Quiénes Somos?
+              - generic [ref=e92]: Somos una plataforma para simular compra y venta de acciones en un entorno realista y seguro. Stock Simulator es ideal para principiantes y expertos, permitiendo mejorar sus habilidades de inversión sin riesgo financiero.
+            - img "phone" [ref=e94]
+        - contentinfo [ref=e95]:
+          - generic [ref=e96]: El acceso o uso no autorizado se considera un delito. © Copyright 2024 by Stock Simulator.
 ```

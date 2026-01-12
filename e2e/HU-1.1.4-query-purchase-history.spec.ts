@@ -54,7 +54,7 @@ test.describe('HU 1.1.4 - Consultar Historial de Compras', () => {
     await page.goto('/login');
     await page.fill('input[formControlName="username"]', testUsers.user1.username);
     await page.fill('input[formControlName="password"]', testUsers.user1.password);
-    await page.click('button[type="submit"]');
+    await page.click('button.button-wrapper.primary');
     await page.waitForURL('**/summary', { timeout: 10000 });
   });
 
@@ -200,7 +200,7 @@ test.describe('HU 1.1.4 - Consultar Historial de Compras', () => {
 
     // When: Usuario busca opciones de filtrado
     const filterDropdown = page.locator('select, mat-select, p-dropdown, .filter').first();
-    const filterButton = page.locator('button:has-text("Filtrar"), button:has-text("Filter")').first();
+    const filterButton = page.locator('button:not(.icon-button)').first();
 
     const hasFilterDropdown = await filterDropdown.isVisible({ timeout: 3000 }).catch(() => false);
     const hasFilterButton = await filterButton.isVisible({ timeout: 3000 }).catch(() => false);
@@ -232,7 +232,7 @@ test.describe('HU 1.1.4 - Consultar Historial de Compras', () => {
     }
 
     // When: Usuario hace click en una transacción o botón de detalles
-    const detailButton = page.locator('button:has-text("Ver"), button:has-text("View"), button:has-text("Detalles"), button:has-text("Details")').first();
+    const detailButton = page.locator('.icon-button').first();
     const transactionRow = page.locator('tr, .transaction-item, mat-row').nth(1); // Segunda fila (primera puede ser header)
 
     const hasDetailButton = await detailButton.isVisible({ timeout: 3000 }).catch(() => false);

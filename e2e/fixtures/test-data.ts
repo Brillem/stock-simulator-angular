@@ -10,7 +10,7 @@ export const testUsers = {
   user1: {
     username: 'testuser1',
     email: 'test1@stocksim.com',
-    password: 'test123',
+    password: 'test123abc',
     firstName: 'Test',
     lastName: 'User1'
   },
@@ -19,7 +19,7 @@ export const testUsers = {
   user2: {
     username: 'testuser2',
     email: 'test2@stocksim.com',
-    password: 'test123',
+    password: 'test123abc',
     firstName: 'Test',
     lastName: 'User2'
   },
@@ -28,7 +28,7 @@ export const testUsers = {
   loadTest: {
     username: 'loadtest',
     email: 'load@stocksim.com',
-    password: 'test123',
+    password: 'test123abc',
     firstName: 'Load',
     lastName: 'Tester'
   }

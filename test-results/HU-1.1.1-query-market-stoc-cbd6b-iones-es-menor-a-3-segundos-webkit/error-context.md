@@ -1,0 +1,117 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic:
+    - generic:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e7]: Stock Simulator
+          - img "Logo" [ref=e8]
+        - generic [ref=e9]:
+          - generic [ref=e11] [cursor=pointer]:
+            - img "cerrar sesión" [ref=e12]
+            - generic [ref=e13]: Cerrar Sesión
+          - generic [ref=e14] [cursor=pointer]: TU
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17] [cursor=pointer]:
+            - img "Consulta de Acciones" [ref=e19]
+            - generic [ref=e21]: Consulta de Acciones
+          - generic [ref=e22] [cursor=pointer]:
+            - img "Compra de Acciones" [ref=e24]
+            - generic [ref=e26]: Compra de Acciones
+          - generic [ref=e27] [cursor=pointer]:
+            - img "Venta de Acciones" [ref=e29]
+            - generic [ref=e31]: Venta de Acciones
+          - generic [ref=e32] [cursor=pointer]:
+            - img "Transferencia de Acciones" [ref=e34]
+            - generic [ref=e36]: Transferencia de Acciones
+          - generic [ref=e37] [cursor=pointer]:
+            - img "Contacto y Soporte" [ref=e39]
+            - generic [ref=e41]: Contacto y Soporte
+        - generic [ref=e43]:
+          - generic [ref=e44]: Consulta de Acciones
+          - generic [ref=e45]: Bienvenido, Test
+          - generic [ref=e50]:
+            - generic [ref=e51]: Búsqueda
+            - textbox "Búsqueda" [ref=e52]
+          - generic [ref=e55]:
+            - tablist [ref=e58]:
+              - generic [ref=e59]:
+                - tab "Acciones Disponibles" [active] [selected] [ref=e60] [cursor=pointer]:
+                  - generic [ref=e62]: Acciones Disponibles
+                - tab "Acciones Adquiridas" [ref=e63] [cursor=pointer]:
+                  - generic [ref=e65]: Acciones Adquiridas
+                - tab "Transacciones" [ref=e66] [cursor=pointer]:
+                  - generic [ref=e68]: Transacciones
+            - generic [ref=e69]:
+              - tabpanel "Acciones Disponibles" [ref=e70]:
+                - generic [ref=e71]:
+                  - table [ref=e72]:
+                    - rowgroup [ref=e73]:
+                      - row "Ticker Empresa Sector Compra y Detalle" [ref=e74]:
+                        - columnheader "Ticker" [ref=e75]
+                        - columnheader "Empresa" [ref=e76]
+                        - columnheader "Sector" [ref=e77]
+                        - columnheader "Compra y Detalle" [ref=e78]
+                    - rowgroup [ref=e79]:
+                      - row "AAPL Apple Inc. Technology company comprar acción ver acción" [ref=e80]:
+                        - cell "AAPL" [ref=e81]
+                        - cell "Apple Inc." [ref=e82]
+                        - cell "Technology company" [ref=e83]
+                        - cell "comprar acción ver acción" [ref=e84]:
+                          - generic [ref=e85]:
+                            - img "comprar acción" [ref=e88] [cursor=pointer]
+                            - img "ver acción" [ref=e91] [cursor=pointer]
+                      - row "GOOGL Alphabet Inc. Search and advertising comprar acción ver acción" [ref=e92]:
+                        - cell "GOOGL" [ref=e93]
+                        - cell "Alphabet Inc." [ref=e94]
+                        - cell "Search and advertising" [ref=e95]
+                        - cell "comprar acción ver acción" [ref=e96]:
+                          - generic [ref=e97]:
+                            - img "comprar acción" [ref=e100] [cursor=pointer]
+                            - img "ver acción" [ref=e103] [cursor=pointer]
+                      - row "MSFT Microsoft Corp. Software company comprar acción ver acción" [ref=e104]:
+                        - cell "MSFT" [ref=e105]
+                        - cell "Microsoft Corp." [ref=e106]
+                        - cell "Software company" [ref=e107]
+                        - cell "comprar acción ver acción" [ref=e108]:
+                          - generic [ref=e109]:
+                            - img "comprar acción" [ref=e112] [cursor=pointer]
+                            - img "ver acción" [ref=e115] [cursor=pointer]
+                      - row "AMZN Amazon.com Inc. E-commerce and cloud comprar acción ver acción" [ref=e116]:
+                        - cell "AMZN" [ref=e117]
+                        - cell "Amazon.com Inc." [ref=e118]
+                        - cell "E-commerce and cloud" [ref=e119]
+                        - cell "comprar acción ver acción" [ref=e120]:
+                          - generic [ref=e121]:
+                            - img "comprar acción" [ref=e124] [cursor=pointer]
+                            - img "ver acción" [ref=e127] [cursor=pointer]
+                      - row "TSLA Tesla Inc. Electric vehicles comprar acción ver acción" [ref=e128]:
+                        - cell "TSLA" [ref=e129]
+                        - cell "Tesla Inc." [ref=e130]
+                        - cell "Electric vehicles" [ref=e131]
+                        - cell "comprar acción ver acción" [ref=e132]:
+                          - generic [ref=e133]:
+                            - img "comprar acción" [ref=e136] [cursor=pointer]
+                            - img "ver acción" [ref=e139] [cursor=pointer]
+                  - group [ref=e140]:
+                    - generic [ref=e142]:
+                      - generic [ref=e143]:
+                        - generic [ref=e144]: Elementos por página
+                        - combobox "10 Elementos por página" [ref=e149] [cursor=pointer]:
+                          - generic [ref=e150]:
+                            - generic [ref=e152]: "10"
+                            - img [ref=e155]
+                      - generic [ref=e158]:
+                        - generic [ref=e159]: 1 - 5 de 5
+                        - button "Página previa" [disabled]:
+                          - img
+                        - button "Siguiente página" [disabled]:
+                          - img
+              - tabpanel [ref=e160]
+              - tabpanel [ref=e161]
+        - contentinfo [ref=e162]:
+          - generic [ref=e163]: El acceso o uso no autorizado se considera un delito. © Copyright 2024 by Stock Simulator.
+```

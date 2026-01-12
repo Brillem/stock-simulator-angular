@@ -55,7 +55,7 @@ test.describe('HU 1.1.1 - Consultar Acciones del Mercado', () => {
     // PASO 2: Iniciar sesión con usuario de prueba
     await page.fill('input[formControlName="username"]', testUsers.user1.username);
     await page.fill('input[formControlName="password"]', testUsers.user1.password);
-    await page.click('button[type="submit"]');
+    await page.click('button.button-wrapper.primary');
 
     // PASO 3: Esperar a que la navegación se complete (redirige a /summary)
     await page.waitForURL('**/summary', { timeout: 10000 });
@@ -102,8 +102,8 @@ test.describe('HU 1.1.1 - Consultar Acciones del Mercado', () => {
 
     expect(foundTickers).toBeGreaterThanOrEqual(3);
 
-    // Verificar que hay botones de acción (Ver, Comprar, etc.)
-    const actionButtons = page.locator('button:has-text("Ver"), button:has-text("Comprar"), button:has-text("Buy"), button:has-text("View")');
+    // Verificar que hay botones de acción (iconos de Ver y Comprar)
+    const actionButtons = page.locator('.icon-button, stock-icon-button');
     const buttonCount = await actionButtons.count();
     expect(buttonCount).toBeGreaterThan(0);
   });
@@ -156,8 +156,8 @@ test.describe('HU 1.1.1 - Consultar Acciones del Mercado', () => {
       await page.waitForTimeout(1000);
     }
 
-    // When: Usuario hace click en "Ver detalles" de una acción
-    const viewButton = page.locator('button:has-text("Ver"), button:has-text("View"), button:has-text("Detalles")').first();
+    // When: Usuario hace click en el botón de ver detalles (icono de ojo)
+    const viewButton = page.locator('.icon-button').nth(1); // Segundo botón es el de "ver" (eyeIcon)
 
     if (await viewButton.isVisible({ timeout: 5000 })) {
       await viewButton.click();
